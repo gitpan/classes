@@ -1,0 +1,10 @@
+Revision history for classes
+
+0.940 Thu Sep 14 09:06:04 EDT 2006
+    First CPAN release.
+    Still needs classestut, classescb filled in later.
+    Still needs X::classes and X::classes::traceable documented.
+    Could use a few more unit tests to get 100% Devel::Cover-age
+
+0.10 Wed May 10 07:04:15 EDT 2006
+    Initial code upload to sourceforge (public release).
