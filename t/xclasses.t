@@ -7,14 +7,11 @@ eval 'use Test::Exception';
 if ($@) {
     plan skip_all => "Test::Exception needed";
 } else {
-    plan tests => 32;
+    plan tests => 31;
 }
 
 use_ok 'classes';
 use_ok 'classes::Test' ,':all';
-
-lives_ok( sub {classes::load classes::Exception},
-   'mistaken use classes::Exception just uses classes');
 
 # SINGLE FORM
 

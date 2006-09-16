@@ -8,7 +8,7 @@ eval 'use Test::Exception';
 if ($@) {
     plan skip_all => "Test::Exception needed";
 } else {
-    plan tests => 4;
+    plan tests => 3;
 }
 
 use_ok 'classes';
@@ -21,5 +21,3 @@ lives_ok( sub {
 
 is_throwable MyThrowable;
 
-lives_ok( sub {require classes::Throwable},
-    'use classes::Throwable is invalid syntax, but uses classes'); 

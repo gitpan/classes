@@ -1,4 +1,4 @@
-# $Id: SUPER.t 132 2006-09-12 00:55:57Z rmuhle $
+# $Id: SUPER.t 137 2006-09-14 13:43:21Z rmuhle $
 
 use Test::More;
 eval 'use Test::Exception';

@@ -1,8 +1,8 @@
 package classes;
 
-# $Id: classes.pm 135 2006-09-14 12:58:07Z rmuhle $
+# $Id: classes.pm 139 2006-09-14 16:44:12Z rmuhle $
 
-our $VERSION = '0.940';
+our $VERSION = '0.941';
 use 5.006_001;
 use Scalar::Util 'reftype', 'blessed';    # standard from 5.8.1
 
@@ -1713,7 +1713,7 @@ classes - conventional Perl 5 classes
 
 =head1 VERSION
 
-This document covers version 0.940
+This document covers version 0.941
 
 =head1 SYNOPSIS
 
@@ -3623,7 +3623,7 @@ Derek Cordon,
 Ray Finch,
 A. (Pete) Fontenot,
 C. Garrett Goebel,
-Eric Johnson,
+Erik Johnson,
 Jim Miner,
 Dave Rolsky,
 Matt Sargent,
