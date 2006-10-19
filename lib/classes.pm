@@ -1,8 +1,8 @@
 package classes;
 
-# $Id: classes.pm 139 2006-09-14 16:44:12Z rmuhle $
+# $Id: classes.pm 142 2006-10-06 18:15:24Z rmuhle $
 
-our $VERSION = '0.941';
+our $VERSION = '0.942';
 use 5.006_001;
 use Scalar::Util 'reftype', 'blessed';    # standard from 5.8.1
 
@@ -1524,7 +1524,7 @@ use classes
     dump      => 'classes::dump',
     class_attrs => {
         'Verbose'       => 3,
-        'Order'         => ['item'],
+        'Order'         => ['item','message'],
         'Format'        => '',
         'Caller_Format' => q[    at %4$s %1$s '%2$s' %3$s],
         'Whole_Stack'   => undef,
@@ -1697,6 +1697,7 @@ classes::classes
     { name=>'X::NotPkgMethod', extends=>'X::classes::traceable' },
     { name=>'X::Unimplemented', extends=>'X::classes::traceable' },
     { name=>'X::Usage', extends=>'X::classes::traceable' },
+    { name=>'X::Undefined', extends=>'X::classes::traceable' },
     { name=>'X::Empty', extends=>'X::classes::traceable' },
     { name=>'X::MethodNotFound', extends=>'X::classes::traceable' },
     { name=>'X::AttrScope', extends=>'X::classes::traceable' },
@@ -1713,7 +1714,7 @@ classes - conventional Perl 5 classes
 
 =head1 VERSION
 
-This document covers version 0.941
+This document covers version 0.942
 
 =head1 SYNOPSIS
 
@@ -1982,6 +1983,7 @@ B<EXCEPTIONS>
             X::MethodNotFound
             X::Unimplemented
             X::Usage
+            X::Undefined
 
 See
 L<X::classes>,
@@ -3483,6 +3485,10 @@ A call to an unimplemented C<ABSTRACT> method is detected.
 =item X::Usage
 
 Any invalid syntax usage.
+
+=item X::Undefined
+
+Attribute value undefined.
 
 =back
 

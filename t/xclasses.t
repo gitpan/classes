@@ -1,4 +1,4 @@
-# $Id: xclasses.t 112 2006-08-13 01:50:29Z rmuhle $
+# $Id: xclasses.t 140 2006-09-26 09:23:29Z rmuhle $
 
 use strict;
 

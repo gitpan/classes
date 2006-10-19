@@ -1,5 +1,11 @@
 Revision history for classes
 
+0.942 Thu Oct 19 12:15:25 EDT 2006
+    Added X::Undefined exception class.
+    Changed X::classes::traceable default Order class attr
+      from ['item'] to ['item','message'], which allows:
+        X::Failed->throw([5,'File not found'])
+
 0.941 Sat Sep 16 02:02:20 EDT 2006
     Fixed dubious error in unit test script.
     Typos and spelling corrections.

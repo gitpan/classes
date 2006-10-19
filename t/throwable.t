@@ -1,4 +1,4 @@
-# $Id: throwable.t 113 2006-08-13 05:42:19Z rmuhle $
+# $Id: throwable.t 140 2006-09-26 09:23:29Z rmuhle $
 
 use strict;
 

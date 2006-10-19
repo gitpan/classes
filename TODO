@@ -1,5 +1,6 @@
-$Id: TODO 137 2006-09-14 13:43:21Z rmuhle $
+$Id: TODO 141 2006-10-03 12:38:45Z rmuhle $
 
+* looks like there is a subtle bug when declaring aliases send => 'write', write => 'write'
 * unit testing to 100% coverage
 * X::classes
 * X::classes::traceable
