@@ -38,7 +38,7 @@ lives_and ( sub {
     sub get_bar { $$CAttrsRO2::ATTR_CLASS_bar * 2 }
 
     package main;
-    my $o2 = CAttrsRO2->new(bar=>1);
+    my $o2 = CAttrsRO2->new;
     is $o2->get_bar, 0; 
     $$CAttrsRO2::ATTR_CLASS_bar = 2;
     is $o2->get_bar, 4; 

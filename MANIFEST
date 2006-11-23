@@ -1,10 +1,10 @@
 Changes
 doc/classes.pm.pdf
-doc/classescb.pod.pdf
-doc/classesfaq.pod.pdf
-doc/classesoop.pod.pdf
-doc/classestut.pod.pdf
-doc/Test.pm.pdf
+doc/classescb.pdf
+doc/classesfaq.pdf
+doc/classesoop.pdf
+doc/classestut.pdf
+doc/classes_Test.pdf
 lib/classes.pm
 lib/classescb.pod
 lib/classesfaq.pod

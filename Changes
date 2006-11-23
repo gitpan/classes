@@ -1,5 +1,12 @@
 Revision history for classes
 
+0.943 Wed Nov 22 22:47:11 EST 2006
+    Deprecated 'needs' since 'use' is needed by compilers and
+    builders to identify needed modules.
+    Changed classes::init_args() to throw X::UnknownAttr if passed
+    key of attribute for which there is not a declaration/setter
+    (as convinced by ken1).
+
 0.942 Thu Oct 19 12:15:25 EDT 2006
     Added X::Undefined exception class.
     Changed X::classes::traceable default Order class attr

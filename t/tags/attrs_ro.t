@@ -39,7 +39,7 @@ lives_and ( sub {
     sub get_bar { $_[0]->{$ATTR_bar} * 2 }
 
     package main;
-    my $o2 = AttrsRO2->new(bar=>1);
+    my $o2 = AttrsRO2->new;
     is $o2->get_bar, 0; 
     $o2->{'AttrsRO2::bar'} = 2;
     is $o2->get_bar, 4;

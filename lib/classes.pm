@@ -1,8 +1,8 @@
 package classes;
 
-# $Id: classes.pm 142 2006-10-06 18:15:24Z rmuhle $
+# $Id: classes.pm 145 2006-10-20 01:57:11Z rmuhle $
 
-our $VERSION = '0.942';
+our $VERSION = '0.943';
 use 5.006_001;
 use Scalar::Util 'reftype', 'blessed';    # standard from 5.8.1
 
@@ -219,6 +219,8 @@ sub classes (@) {
     #-----------------------------------------------------------------
     # same as 'throws' for now
 
+    # 'needs' IS DEPRECATED, use perl 'use' instead, too many
+    # compilers/builders depend on 'use' to identify needed modules
     if ($needs) {
         my $is_ref = ref $needs;
 
@@ -230,8 +232,8 @@ sub classes (@) {
 
         X::Usage->throw( <<'EOM' ) if $is_ref ne 'ARRAY';
 
-    needs => 'SomeModule',
-    needs => [ 'SomeModule', 'SomeOtherModule' ],
+    DEPRECATED, use perl 'use' instead, too many compilers/builders
+    depend on 'use' to identify which modules are needed
 EOM
 
         for my $pkg (@$needs) {
@@ -1231,8 +1233,9 @@ sub init_args {
     $attrs = {@_} if ref $attrs ne 'HASH';
 
     while ( my ( $attr, $value ) = each %$attrs ) {
-        my $setter = $self->can("set_$attr");
-        $self->$setter($value) if $setter;
+        my $setter = $self->can("set_$attr")
+            or X::UnknownAttr->throw([$attr]);
+        $self->$setter($value);
     }
 
     return $self;
@@ -1460,6 +1463,8 @@ sub id { Scalar::Util::refaddr($_[0]) }
 
 package classes::Throwable;
 use strict 'subs'; no warnings;
+use Scalar::Util;
+
 use classes
     type => 'mixable',
     class_methods => {
@@ -1472,7 +1477,6 @@ use classes
         rethrow  => 'rethrow',
         send     => 'rethrow',
     },
-    needs => 'Scalar::Util',
 ; # END DECLARATION
 
 sub capture { $_[0] };
@@ -1494,6 +1498,8 @@ sub caught {
 
 package X::classes;
 use strict 'subs'; no warnings;
+use Scalar::Util;
+
 use classes
     mixes   => 'classes::Throwable',
     new     => 'classes::new_init',
@@ -1501,7 +1507,6 @@ use classes
     clone   => 'classes::clone',
     dump    => 'classes::dump',
     methods => ['as_string'],
-    needs   => 'Scalar::Util',
 ;
 
 sub as_string {
@@ -1516,6 +1521,8 @@ use overload bool => sub {1}, '""' => 'as_string', fallback => 1;
 
 package X::classes::traceable;
 use strict 'subs'; no warnings;
+use Scalar::Util;
+
 use classes
     extends   => 'X::classes',
     new       => 'classes::new_init',
@@ -1537,7 +1544,6 @@ use classes
             call_stack call_package call_method call_file call_line
         )],
     methods => [ 'as_string' ],
-    needs => 'Scalar::Util',
 ;
 
 sub get_full_message { get_message(@_) }
@@ -1701,6 +1707,7 @@ classes::classes
     { name=>'X::Empty', extends=>'X::classes::traceable' },
     { name=>'X::MethodNotFound', extends=>'X::classes::traceable' },
     { name=>'X::AttrScope', extends=>'X::classes::traceable' },
+    { name=>'X::UnknownAttr', extends=>'X::classes::traceable' },
 ;
 
 1;
@@ -1714,7 +1721,7 @@ classes - conventional Perl 5 classes
 
 =head1 VERSION
 
-This document covers version 0.942
+This document covers version 0.943
 
 =head1 SYNOPSIS
 
@@ -1732,7 +1739,6 @@ This document covers version 0.942
         methods         => { abstract_method => 'ABSTRACT' },
         throws          => 'X::Usage',
         exceptions      => 'X::MyOwn',
-        needs           => [ 'ThisClass', 'ThatClass' ],
     ; 
 
 Mixins:
@@ -1870,9 +1876,6 @@ B<DECLARATION TAGS>
     clone => 'MyModule::clone',
 
     dump  => 'classes::dump',
-
-    needs => 'SomeClassModule',
-    needs => [ 'SomeClassModule', 'SomeOtherClass' ],
 
     throws => 'X::Usage',
     throws => [ 'X::Usage' ],
@@ -2575,22 +2578,6 @@ expect a first argument to be a class or object reference.
 
 See: C<methods>, C<class_methods>, C<pkg_mixes>
 
-=item needs
-
-Declares class modules, or just packages, that are needed by
-the class for aggregation or whatever. Really just shorthand for
-writing out a separate C<use> line for each but with the benefit
-of including the dependencies in the declaration of the class and
-making your class preamble much cleaner.
-
-Obviously if it is more than a simple class package you need you
-will need a separate C<use> line but these likely don't belong in
-a class declaration anyway since they usually represent expansions
-to the Perl function set rather than expansions to your class.
-If you need to import one or more specific methods, consider
-declaring them as mixed in C<methods> or just fully qualify your
-calls to them rather than importing.
-
 =item throws
 
 Declares exceptions that are thrown by the class but defined
@@ -2983,8 +2970,9 @@ Here is the actual code for quick reference:
         $attrs = {@_} if ref $attrs ne 'HASH';
 
         while ( my ( $attr, $value ) = each %$attrs ) {
-            my $setter = $self->can("set_$attr");
-            $self->$setter($value) if $setter;
+            my $setter = $self->can("set_$attr")
+                or X::UnknownAttr->throw([$attr]);
+            $self->$setter($value);
         }
 
         return $self;
@@ -2999,6 +2987,9 @@ attribute inheritance, only method inheritance.
 See:
 C<attrs>,
 C<class_attrs>
+
+Throws C<X::UnknownAttr> if can't find a setter for the attr/key
+passed.
 
 =item classes::clone
 
@@ -3490,6 +3481,10 @@ Any invalid syntax usage.
 
 Attribute value undefined.
 
+=item X::UnknownAttr
+
+Attribute not known to the class in question.
+
 =back
 
 See: 
@@ -3631,6 +3626,7 @@ A. (Pete) Fontenot,
 C. Garrett Goebel,
 Erik Johnson,
 Jim Miner,
+ken1,
 Dave Rolsky,
 Matt Sargent,
 David Muir Sharnoff,
