@@ -1,8 +1,12 @@
 package classes::Test;
 
-# $Id: Test.pm 135 2006-09-14 12:58:07Z rmuhle $
+# $Id: Test.pm 147 2008-03-08 16:04:33Z rmuhle $
 
-use strict;
+# these two are just really brain dead
+# when using more advanced perl stuff
+no strict;
+no warnings;
+
 use Scalar::Util 'blessed';
 
 use base 'Exporter';

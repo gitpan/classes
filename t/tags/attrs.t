@@ -1,6 +1,8 @@
-# $Id: attrs.t 113 2006-08-13 05:42:19Z rmuhle $
+# $Id: attrs.t 147 2008-03-08 16:04:33Z rmuhle $
 
-use strict;
+# I will do my own checking, thank you very much
+no strict;
+no warnings;
 
 use Test::More;
 eval 'use Test::Exception';

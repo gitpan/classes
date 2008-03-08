@@ -1,8 +1,8 @@
 package classes;
 
-# $Id: classes.pm 145 2006-10-20 01:57:11Z rmuhle $
+# $Id: classes.pm 147 2008-03-08 16:04:33Z rmuhle $
 
-our $VERSION = '0.943';
+our $VERSION = '0.944';
 use 5.006_001;
 use Scalar::Util 'reftype', 'blessed';    # standard from 5.8.1
 
@@ -1721,7 +1721,7 @@ classes - conventional Perl 5 classes
 
 =head1 VERSION
 
-This document covers version 0.943
+This document covers version 0.944
 
 =head1 SYNOPSIS
 
@@ -3641,3 +3641,17 @@ Copyright 2005, 2006 Robert S. Muhlestein (rob at muhlestein.net) All
 rights reserved. This module is free software; you can redistribute
 it and/or modify it under the same terms as Perl itself. [See
 L<perlartistic>.]
+
+=head1 BUGS AND CHANGES
+
+The Perl 'strict' pragma was not seeing some cases of $$foo, specifically
+when used as an argument to defined. When they fixed that bug in the
+'strict' pragma they caused some of the classes pragma unit tests to fail,
+but only because of strict's normal overzealousness rejection of good perl
+in an advanced context, which is required to create other simplifications
+in Perl OO programming using classes.
+
+If you use accessor methods use strict should not give you problems, and
+when it does remember you can turn it off for sections of code or the whole
+thing with 'no strict', if you are careful and use it properly no one will
+burn you at the stake, at least not on my team.

@@ -1,11 +1,11 @@
-# $Id: classes.t 112 2006-08-13 01:50:29Z rmuhle $
+# $Id: classes.t 147 2008-03-08 16:04:33Z rmuhle $
 
 # unit tests are in the order the code appears in classes.pm
 # without any particular organization beyond that, seemed easiest
 # approach to get full test coverage
 
-use strict;
-use warnings;
+no strict;
+no warnings;
 
 use Test::More tests => 14;
 use_ok 'classes';

@@ -1,6 +1,7 @@
-# $Id: caller.t 113 2006-08-13 05:42:19Z rmuhle $
+# $Id: caller.t 147 2008-03-08 16:04:33Z rmuhle $
 
-use strict;
+no strict;
+no warnings;
 
 use Test::More;
 eval 'use Test::Exception';
